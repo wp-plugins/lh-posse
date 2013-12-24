@@ -2,9 +2,9 @@
 /*
 Plugin Name: LH Posse
 Plugin URI: http://localhero.biz/plugins/lh-posse/
-Description: Adds several feeds to Wordpress customised based on post format for posting to facebook and twiiter via IFTTT
+Description: Adds several feeds to Wordpress customised based on post format for posting to facebook and twitter via IFTTT
 Author: shawfactor
-Version: 0.02
+Version: 0.03
 Author URI: http://shawfactor.com/
 
 == Changelog ==
@@ -14,6 +14,9 @@ Author URI: http://shawfactor.com/
 
 = 0.02 =
 * Mapped basic twitter feed and added basic xmlrpc server
+
+= 0.03 =
+* Got xmlrpc server clone working
 
 License:
 Released under the GPL license
@@ -33,8 +36,7 @@ include_once('includes/shortlinks.php');
 include_once('includes/hashtags.php');
 include_once('includes/truncenator.php');
 include_once('includes/ogp.php');
-
-
+include_once('includes/rpc-helpers.php');
 
 
 
@@ -209,5 +211,29 @@ $foo .= ' #'.$tag->slug;
 return $foo;
 
 }
+
+function lh_posse_init_external_rpc_handler(){ 
+    global $wp_rewrite; 
+    $plugin_url = plugins_url( 'xmlrpc.php', __FILE__ ); 
+    $plugin_url = substr( $plugin_url, strlen( home_url() ) + 1 ); 
+    // The pattern is prefixed with '^' 
+    // The substitution is prefixed with the "home root", at least a '/' 
+    // This is equivalent to appending it to `non_wp_rules` 
+    $wp_rewrite->add_external_rule( 'lh-posse-rpc$', $plugin_url ); 
+}
+
+add_action( 'init', 'lh_posse_init_external_rpc_handler' ); 
+
+function lh_posse_init_external_rpc_client(){ 
+    global $wp_rewrite; 
+    $plugin_url = plugins_url( 'client.php', __FILE__ ); 
+    $plugin_url = substr( $plugin_url, strlen( home_url() ) + 1 ); 
+    // The pattern is prefixed with '^' 
+    // The substitution is prefixed with the "home root", at least a '/' 
+    // This is equivalent to appending it to `non_wp_rules` 
+    $wp_rewrite->add_external_rule( 'lh-posse-client$', $plugin_url ); 
+}
+
+add_action( 'init', 'lh_posse_init_external_rpc_client' ); 
 
 ?>

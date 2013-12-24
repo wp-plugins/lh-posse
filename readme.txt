@@ -13,11 +13,11 @@ It has been developed for use in [LocalHero][].
 
 [LocalHero]: http://localhero.biz/
 
-Once activated the plugin adds two new feeds. E.G. http://localhero.biz/feed/lh-posse-fb/ and http://localhero.biz/feed/lh-posse-tw/ these feeds are customised for flexible syndication via IFTTT.
+Once activated the plugin adds two new feeds. E.G. http://localhero.biz/feed/lh-posse-fb/ and http://localhero.biz/feed/lh-posse-tw/ these feeds are customised for flexible syndication via IFTTT to social media.
 
 To assist in this synidication LH-posse also:
 
-* Publishes OGP meta in the HEAD of your HTML (will overide the Jetpacks OGP if JETpack is installed);
+* Publishes OGP meta in the HEAD of your HTML (will overide the Jetpacks OGP if Jetpack is installed);
 * Adds a optional OGP logo for your site in the OGP meta;
 * Will autotag hastags in posts which use the post format status;
 
@@ -34,3 +34,6 @@ Initial release.
 
 **0.02 December 12, 2013**  
 * Mapped basic facebook feed and added twitter feed plus xmlrpc server
+
+**0.03 December 22, 2013**  
+* Got xmlrpc server working properly
