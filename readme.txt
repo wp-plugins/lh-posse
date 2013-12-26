@@ -27,9 +27,10 @@ To assist in this synidication LH-posse also:
 2. Activate the plugin through the 'Plugins' menu in WordPress.
 3. To enable pretty permalinks (e.g. `http://example.com/feed/lh-posse-fb/`), go to Permalinks in the Setting menu and Save.
 
-== FAQ ==
- Q: Why the name LH-POSSE?
- POSSE stands for Post (On your own Site) Syndicate Elsewhere. It has been developed for use in [LocalHero][], hence LH-POSSE. More information on POSSE and the Indieweb is available here: http://indiewebcamp.com/POSSE
+== Frequently Asked Questions ==
+
+= Why the name LH-POSSE? =
+POSSE stands for Post (On your own Site) Syndicate Elsewhere. It has been developed for use in [LocalHero][], hence LH-POSSE. More information on POSSE and the Indieweb is available here: http://indiewebcamp.com/POSSE
 
 == Changelog ==
 
