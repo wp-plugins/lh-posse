@@ -29,7 +29,7 @@ To assist in this synidication LH-posse also:
 
 == Frequently Asked Questions ==
 
-= Why the name LH-POSSE? =
+Why the name LH-POSSE?
 POSSE stands for Post (On your own Site) Syndicate Elsewhere. It has been developed for use in [LocalHero][], hence LH-POSSE. More information on POSSE and the Indieweb is available here: http://indiewebcamp.com/POSSE
 
 == Changelog ==
