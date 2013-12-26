@@ -1,7 +1,7 @@
 === LH Posse ===
 Contributors: shawfactor
 Donate link: http://localhero.biz/plugins/lh-posse/
-Tags: feed, feeds, rss, Facebook, Twitter, POSSE, Indieweb, syndication,xmlrpc,IFTTT
+Tags: feed, feeds, rss, Facebook, Twitter, POSSE, Indieweb, syndication
 Requires at least: 3.0
 Tested up to: 3.8
 Stable tag: trunk
@@ -26,6 +26,10 @@ To assist in this synidication LH-posse also:
 1. Upload the entire `lh-posse` folder to the `/wp-content/plugins/` directory.
 2. Activate the plugin through the 'Plugins' menu in WordPress.
 3. To enable pretty permalinks (e.g. `http://example.com/feed/lh-posse-fb/`), go to Permalinks in the Setting menu and Save.
+
+== FAQ ==
+ Q: Why the name LH-POSSE?
+ POSSE stands for Post (On your own Site) Syndicate Elsewhere. It has been developed for use in [LocalHero][], hence LH-POSSE. More information on POSSE and the Indieweb is available here: http://indiewebcamp.com/POSSE
 
 == Changelog ==
 
