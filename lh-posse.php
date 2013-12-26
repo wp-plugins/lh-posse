@@ -4,7 +4,7 @@ Plugin Name: LH Posse
 Plugin URI: http://localhero.biz/plugins/lh-posse/
 Description: Adds several feeds to Wordpress customised based on post format for posting to facebook and twitter via IFTTT
 Author: shawfactor
-Version: 0.03
+Version: 0.04
 Author URI: http://shawfactor.com/
 
 == Changelog ==
@@ -18,11 +18,14 @@ Author URI: http://shawfactor.com/
 = 0.03 =
 * Got xmlrpc server clone working
 
+= 0.04 =
+* Helper classes
+
 License:
 Released under the GPL license
 http://www.gnu.org/copyleft/gpl.html
 
-Copyright 2011  Peter Shaw  (email : pete@localhero.biz)
+Copyright 2013  Peter Shaw  (email : pete@localhero.biz)
 
 
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published bythe Free Software Foundation; either version 2 of the License, or (at your option) any later version.

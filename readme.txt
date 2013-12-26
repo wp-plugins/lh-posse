@@ -6,14 +6,14 @@ Requires at least: 3.0
 Tested up to: 3.8
 Stable tag: trunk
 
-This plugin creates two feeds for POSSEing your content to Facebook and Twitter via IFTTT
+A flexible way to syndicate your content to Facebook and Twitter via IFTTT using customised feeds.
 == Description ==
+
+Once activated the plugin adds two new feeds. E.G. http://localhero.biz/feed/lh-posse-fb/ and http://localhero.biz/feed/lh-posse-tw/ these feeds are customised for flexible syndication via IFTTT to social media. You can view the recipes utilising lh-posse feeds here: https://ifttt.com/recipes/search?q=lh-posse&ac=false
 
 It has been developed for use in [LocalHero][].
 
 [LocalHero]: http://localhero.biz/
-
-Once activated the plugin adds two new feeds. E.G. http://localhero.biz/feed/lh-posse-fb/ and http://localhero.biz/feed/lh-posse-tw/ these feeds are customised for flexible syndication via IFTTT to social media.
 
 To assist in this synidication LH-posse also:
 
@@ -37,3 +37,6 @@ Initial release.
 
 **0.03 December 22, 2013**  
 * Got xmlrpc server working properly
+
+**0.04 December 24, 2013**  
+* RPC helper classes

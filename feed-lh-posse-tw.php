@@ -30,6 +30,10 @@ include("tw-templates/tw-standard.php");
 
 include("tw-templates/tw-status.php");
 
+} elseif ($format == "aside"){
+
+include("tw-templates/tw-status.php");
+
 } elseif ($format == "quote"){
 
 include("tw-templates/tw-quote.php");
