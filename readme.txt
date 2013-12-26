@@ -1,7 +1,7 @@
 === LH Posse ===
 Contributors: shawfactor
 Donate link: http://localhero.biz/plugins/lh-posse/
-Tags: feed, feeds, rss, Facebook, Twitter, POSSE, Indieweb, syndication
+Tags: feed, feeds, rss, Facebook, Twitter, POSSE, Indieweb, syndication,xmlrpc
 Requires at least: 3.0
 Tested up to: 3.8
 Stable tag: trunk
