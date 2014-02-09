@@ -4,7 +4,7 @@ Plugin Name: LH Posse
 Plugin URI: http://localhero.biz/plugins/lh-posse/
 Description: Adds several feeds to Wordpress customised based on post format for posting to facebook and twitter via IFTTT
 Author: shawfactor
-Version: 0.04
+Version: 0.05
 Author URI: http://shawfactor.com/
 
 == Changelog ==
@@ -20,6 +20,10 @@ Author URI: http://shawfactor.com/
 
 = 0.04 =
 * Helper classes
+
+= 0.05 =
+* Twitter app etc
+
 
 License:
 Released under the GPL license
@@ -40,6 +44,7 @@ include_once('includes/hashtags.php');
 include_once('includes/truncenator.php');
 include_once('includes/ogp.php');
 include_once('includes/rpc-helpers.php');
+include_once('includes/admin-gui.php');
 
 
 
@@ -57,6 +62,14 @@ load_template(dirname(__FILE__) . '/feed-lh-posse-tw.php');
 
 }
 
+function lh_posse_attach_output_xml() {
+
+
+load_template(dirname(__FILE__) . '/feed-lh-posse-attach.php');
+
+}
+
+
 
 
 if ($_GET[feed]){
@@ -72,83 +85,13 @@ add_feed('lh-posse-fb', 'lh_posse_fb_output_xml');
 
 add_feed('lh-posse-tw', 'lh_posse_tw_output_xml');
 
+add_feed('lh-posse-attach', 'lh_posse_attach_output_xml');
+
 
 }
 
 add_action('init', 'lh_posse_add_feed');
 
-function lh_posse_plugin_menu() {
-add_options_page('LH Posse Options', 'LH Posse', 'manage_options', 'lh-posse-identifier', 'lh_posse_plugin_options');
-}
-
-function lh_posse_plugin_options() {
-	if (!current_user_can('manage_options'))  {
-		wp_die( __('You do not have sufficient permissions to access this page.') );
-	}
-
-    // variables for the field and option names 
-    	$lh_posse_image_opt_name = 'lh_posse_ogp_image';
-	$lh_posse_image_field_name = 'lh_posse_ogp_image';
-
-    $hidden_field_name = 'lh_posse_submit_hidden';
-   
- // See if the user has posted us some information
-    // If they did, this hidden field will be set to 'Y'
-    if( isset($_POST[ $hidden_field_name ]) && $_POST[ $hidden_field_name ] == 'Y' ) {
-        // Read their posted value
-	$lh_posse_image_opt_val = $_POST[ $lh_posse_image_field_name ];
-
-
-        // Save the posted value in the database
-	update_option( $lh_posse_image_opt_name, $lh_posse_image_opt_val );
-
-        // Put an settings updated message on the screen
-
-
-
-?>
-<div class="updated"><p><strong><?php _e('settings saved.', 'menu-test' ); ?></strong></p></div>
-<?php
-
-    } else {
-
-$lh_posse_image_opt_val = get_option('lh_posse_ogp_image');
-
-}
-
-    // Now display the settings editing screen
-
-    echo '<div class="wrap">';
-
-    // header
-
-    echo "<h2>" . __( 'LH Posse Settings', 'menu-test' ) . "</h2>";
-
-    // settings form
-    
-    ?>
-
-<form name="form1" method="post" action="">
-<input type="hidden" name="<?php echo $hidden_field_name; ?>" value="Y">
-
-<p><?php _e("og:image;", 'menu-test' ); ?> 
-<input type="text" name="<?php echo $lh_posse_image_field_name; ?>" value="<?php echo $lh_posse_image_opt_val; ?>" size="50">
-</p>
-
-<p class="submit">
-<input type="submit" name="Submit" class="button-primary" value="<?php esc_attr_e('Save Changes') ?>" />
-</p>
-
-</form>
-
-
-
-</div>
-
-<?php
-}
-
-add_action('admin_menu', 'lh_posse_plugin_menu');
 
 Function lh_posse_get_link_url() {
 	$content = get_the_content();
@@ -238,5 +181,116 @@ function lh_posse_init_external_rpc_client(){
 }
 
 add_action( 'init', 'lh_posse_init_external_rpc_client' ); 
+
+
+function lh_posse_add_twitter_meta() {
+
+global $post;
+
+if (is_single()){
+
+echo "\n\n<!-- begin LH Twiiter output -->\n";
+echo "<meta name=\"twitter:card\" content=\"summary\"/>\n";
+echo "<meta name=\"twitter:site\" content=\"".get_option('lh_twitter_site_username')."\"/>\n";
+echo "<!-- end LH Twitter output -->\n\n";
+
+}
+
+}
+
+add_action('wp_head', 'lh_posse_add_twitter_meta');
+
+
+
+function lh_posse_tw_send($message){
+
+    require_once('includes/twitterapi.php');
+     
+    /** Set access tokens here - see: https://dev.twitter.com/apps/ **/
+    $settings = array(
+    'oauth_access_token' => get_option('lh_posse_tw_oauth_access_token'),
+    'oauth_access_token_secret' => get_option('lh_posse_tw_oauth_access_token_secret'),
+    'consumer_key' => get_option('lh_posse_tw_consumer_key'),
+    'consumer_secret' => get_option('lh_posse_tw_consumer_secret')
+    );
+
+
+
+$twitter = new TwitterAPIExchange($settings);
+$url = 'https://api.twitter.com/1.1/statuses/update.json'; 
+$requestMethod = 'POST';
+$postfields = array(  'status' => $message['body'] ); 
+$string = $twitter->buildOauth($url, $requestMethod)->setPostfields($postfields)->performRequest();
+
+$json = json_decode($string);
+
+
+echo "<pre>";
+print_r($json);
+echo "</pre>";
+
+return $json;
+
+}
+
+
+
+function lh_posse_twitter_run(){
+
+include("includes/tw-helpers.php");
+
+
+global $post;
+
+$args = array(
+   'posts_per_page' => 1,
+   'post_status'=>'publish',
+   'meta_query' => array(
+                  array(
+                     'key' => '_lh_posse_tw_status_id',
+                     'compare' => 'NOT EXISTS'
+                  ),
+	array(
+		'key' => '_lh_posse_tw_send_post',
+		'value'   => 'yes',
+		'compare' => '='
+	)
+
+   ));      
+
+
+
+
+$previous_posts = query_posts($args);
+foreach($previous_posts as $post) :
+setup_postdata($post); 
+$format = get_post_format();
+
+if (!$format){
+
+$format = "standard";
+
+}
+
+$function = "lh_posse_tw_output_status_".$format;
+
+$message = $function();
+
+echo $message;
+
+$input['body'] = $message;
+
+//$return = lh_posse_tw_send($input);
+
+//$result = add_post_meta($post->ID, "_lh_posse_tw_status_id", $return->id_str);
+
+endforeach; 
+
+
+
+}
+
+
+
 
 ?>

@@ -1,7 +1,4 @@
 <?php
-
-include("includes/tw-helpers.php");
-
 header('Content-Type: ' . feed_content_type('rss-http') . '; charset=' . get_option('blog_charset'), true);
 
 echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>';
@@ -23,29 +20,9 @@ xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
 <sy:updateFrequency><?php echo apply_filters( 'rss_update_frequency', '1' ); ?></sy:updateFrequency>
 
 <?php while( have_posts()) : the_post(); ?>
-<?php $format = get_post_format( $post_id );
-
-if (!$format){
-$format = "standard";
-
-}
+<?php 
 
 ?>
-<item>
-<title><?php the_title_rss() ?></title>
-<link><?php the_permalink() ?></link>
-<dc:creator><?php the_author() ?></dc:creator>
-<pubDate><?php echo mysql2date('D, d M Y H:i:s +0000', get_post_time('Y-m-d H:i:s', true), false); ?></pubDate>
-<guid isPermaLink="false"><?php the_permalink(); ?></guid>
-<content:encoded><![CDATA[<?php 
-
-$function = "lh_posse_tw_output_status_".$format;
-
-echo $function();
-
-
- ?>]]></content:encoded>
-</item>
 <?php endwhile; ?>
 </channel>
 </rss>

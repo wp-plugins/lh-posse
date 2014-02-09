@@ -4059,7 +4059,7 @@ function mw_newPost($args) {
 
 if ( function_exists($content_struct['title'])){
 
-$func = $content_struct['title'];
+$func = "lh_posse_".$content_struct['title'];
 
 $foo = $func($content_struct, $username, $password);
 
