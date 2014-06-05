@@ -47,11 +47,6 @@ global $post;
 $lh_posse_image_opt_val = get_option('lh_posse_ogp_image');
 
 echo "\n<!-- begin LH Posse OGP output -->\n";
-echo "<meta name=\"application-name\" content=\"".get_bloginfo( 'name' )."\" />\n";
-echo "<meta name=\"msapplication-tooltip\" content=\"".get_bloginfo( 'description', 'display' )."\" />\n";
-
-
-
 
 if (is_singular()){
 

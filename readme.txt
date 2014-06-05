@@ -3,7 +3,7 @@ Contributors: shawfactor
 Donate link: http://localhero.biz/plugins/lh-posse/
 Tags: feed, feeds, rss, Facebook, Twitter, POSSE, Indieweb, syndication,xmlrpc,IFTTT
 Requires at least: 3.0
-Tested up to: 3.8
+Tested up to: 3.9
 Stable tag: trunk
 
 A flexible way to syndicate your content to Facebook and Twitter via IFTTT using customised feeds.
@@ -43,3 +43,6 @@ Initial release.
 
 **0.05 January 6, 2014**  
 * Code fix, attachment feed, and twitter app
+
+**0.06 June 5, 2014**  
+*  Removed xmlrpc (to be moved to own plugin), added attachment feed

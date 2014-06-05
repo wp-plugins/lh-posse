@@ -22,6 +22,32 @@ xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
 <?php while( have_posts()) : the_post(); ?>
 <?php 
 
+$args = array( 'post_parent' => $post->ID, 'post_type'   => 'attachment',  'posts_per_page' => -1, 'post_status' => 'inherit' );
+
+$childs = get_children( $args, $output ); 
+
+//print_r($childs);
+
+foreach ( $childs as $child ) { 
+
+?>
+
+
+<item>
+<title><?php echo $child->post_title ?></title>";
+<guid isPermaLink="false"><?php echo $child->guid; ?></guid>
+<link><?php echo wp_get_attachment_url($child->ID); ?></link>
+<description><![CDATA[<?php echo $child->post_excerpt; ?>]]></description>
+<content:encoded><![CDATA[<?php echo $child->post_content; ?>]]></content:encoded>
+</item>
+
+
+
+<?php
+
+}
+
+
 ?>
 <?php endwhile; ?>
 </channel>

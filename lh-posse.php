@@ -4,7 +4,7 @@ Plugin Name: LH Posse
 Plugin URI: http://localhero.biz/plugins/lh-posse/
 Description: Adds several feeds to Wordpress customised based on post format for posting to facebook and twitter via IFTTT
 Author: shawfactor
-Version: 0.05
+Version: 0.06
 Author URI: http://shawfactor.com/
 
 == Changelog ==
@@ -23,6 +23,9 @@ Author URI: http://shawfactor.com/
 
 = 0.05 =
 * Twitter app etc
+
+= 0.06 =
+* Removed xmlrpc (to be moved to own plugin), added attachment feed
 
 
 License:
@@ -43,8 +46,11 @@ include_once('includes/shortlinks.php');
 include_once('includes/hashtags.php');
 include_once('includes/truncenator.php');
 include_once('includes/ogp.php');
-include_once('includes/rpc-helpers.php');
+include_once('includes/twitter.php');
 include_once('includes/admin-gui.php');
+include_once("includes/tw-helpers.php");
+include_once("includes/rel-syndication.php");
+
 
 
 
@@ -170,35 +176,10 @@ function lh_posse_init_external_rpc_handler(){
 
 add_action( 'init', 'lh_posse_init_external_rpc_handler' ); 
 
-function lh_posse_init_external_rpc_client(){ 
-    global $wp_rewrite; 
-    $plugin_url = plugins_url( 'client.php', __FILE__ ); 
-    $plugin_url = substr( $plugin_url, strlen( home_url() ) + 1 ); 
-    // The pattern is prefixed with '^' 
-    // The substitution is prefixed with the "home root", at least a '/' 
-    // This is equivalent to appending it to `non_wp_rules` 
-    $wp_rewrite->add_external_rule( 'lh-posse-client$', $plugin_url ); 
-}
-
-add_action( 'init', 'lh_posse_init_external_rpc_client' ); 
 
 
-function lh_posse_add_twitter_meta() {
 
-global $post;
 
-if (is_single()){
-
-echo "\n\n<!-- begin LH Twiiter output -->\n";
-echo "<meta name=\"twitter:card\" content=\"summary\"/>\n";
-echo "<meta name=\"twitter:site\" content=\"".get_option('lh_twitter_site_username')."\"/>\n";
-echo "<!-- end LH Twitter output -->\n\n";
-
-}
-
-}
-
-add_action('wp_head', 'lh_posse_add_twitter_meta');
 
 
 
@@ -219,7 +200,8 @@ function lh_posse_tw_send($message){
 $twitter = new TwitterAPIExchange($settings);
 $url = 'https://api.twitter.com/1.1/statuses/update.json'; 
 $requestMethod = 'POST';
-$postfields = array(  'status' => $message['body'] ); 
+$message['body'] = html_entity_decode($message['body'], $flags = ENT_QUOTES, $encoding = 'UTF-8' );
+$postfields = $message;
 $string = $twitter->buildOauth($url, $requestMethod)->setPostfields($postfields)->performRequest();
 
 $json = json_decode($string);

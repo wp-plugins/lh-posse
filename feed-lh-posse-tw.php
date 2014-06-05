@@ -1,6 +1,5 @@
 <?php
 
-include("includes/tw-helpers.php");
 
 header('Content-Type: ' . feed_content_type('rss-http') . '; charset=' . get_option('blog_charset'), true);
 

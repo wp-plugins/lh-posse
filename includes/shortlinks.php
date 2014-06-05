@@ -68,7 +68,12 @@ function hum_redirect_local( $type, $id ) {
       wp_redirect( $permalink, 301 );
       exit;
     }
-  }
+  } elseif (($type == "l") && (function_exists('lh_site_specific_hum_type_handler'))){
+
+lh_site_specific_hum_type_handler($id);
+
+}
+
 }
 add_filter('hum_request', 'hum_redirect_local', 20, 2);
 
@@ -102,6 +107,8 @@ function hum_request_i( $path ) {
   }
 }
 add_filter('hum_request_i', 'hum_request_i', 20);
+
+
 
 
 /**
@@ -368,19 +375,13 @@ return $post->guid;
 
 } else {
 
-if (strstr($post->guid, 'localhero.biz')){
-
-return get_permalink($post->ID);
-
-
-} else {
 
 $type = hum_type_prefix($post->ID);
 $sxg_id = num_to_sxg($post->ID);
 $link = trailingslashit( hum_shortlink_base() ) . $type . '/' . $sxg_id;
- return $link;
 
-}
+return $link;
+
 
 }
 
@@ -390,6 +391,16 @@ function lh_posse_shortlink(){
 
 global $post;
 
+if (function_exists('lh_site_specific_hum_handler')) {
+
+$foo = lh_site_specific_hum_handler();
+
+return $foo;
+
+
+} else {
+
+
 $type = hum_type_prefix($post->ID);
 $sxg_id = num_to_sxg($post->ID);
 $link = trailingslashit( hum_shortlink_base() ) . $type . '/' . $sxg_id;
@@ -397,16 +408,12 @@ $link = trailingslashit( hum_shortlink_base() ) . $type . '/' . $sxg_id;
 
 }
 
+}
 
 
-remove_filter( 'hum_request', 'hum_redirect_local' );
 
-add_filter('hum_request', 'lh_hum_redirect_local', 20, 2);
-
-remove_filter('the_permalink_rss','lh_external_permalink');
 
 add_filter('the_permalink_rss', 'lh_hum_permalink', 20, 2);
-
 
 
 

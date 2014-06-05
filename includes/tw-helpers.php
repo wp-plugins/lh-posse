@@ -3,7 +3,7 @@
 function lh_posse_tw_output_status_standard(){
 global $post;
 
-$return = lh_posse_truncate(lh_posse_clean_excerpt(get_the_title()." ".get_the_excerpt()).lh_posse_return_hashtags() ,"120")." ".lh_posse_shortlink();
+$return = lh_posse_truncate(lh_posse_clean_excerpt(get_the_title()." ".get_the_excerpt()).lh_posse_return_hashtags() ,"100")." ".lh_posse_shortlink();
 
 return $return;
 
