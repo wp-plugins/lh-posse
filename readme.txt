@@ -6,10 +6,10 @@ Requires at least: 3.0
 Tested up to: 3.9
 Stable tag: trunk
 
-A flexible way to syndicate your content to Facebook and Twitter via IFTTT using customised feeds.
+A flexible way to syndicate your content to Facebook, Twitter, Google Drive and many more via IFTTT using customised feeds.
 == Description ==
 
-Once activated the plugin adds two new feeds. E.G. http://localhero.biz/feed/lh-posse-fb/ and http://localhero.biz/feed/lh-posse-tw/ these feeds are customised for flexible syndication via IFTTT to social media. You can view the recipes utilising lh-posse feeds here: https://ifttt.com/recipes/search?q=lh-posse&ac=false
+Once activated the plugin adds three new feeds. E.G. http://localhero.biz/feed/lh-posse-fb/,  http://localhero.biz/feed/lh-posse-tw/, and   http://localhero.biz/feed/lh-posse-attach/. These feeds are customised for flexible syndication via IFTTT to social media and online productivity apps. You can view the recipes utilising lh-posse feeds here: https://ifttt.com/recipes/search?q=lh-posse&ac=false
 
 It has been developed for use in [LocalHero][].
 
