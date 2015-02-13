@@ -20,14 +20,14 @@ foreach($images as $image) {
 
 <item>
 <title><?php the_title_rss() ?></title>
-<link><?php echo $image->guid; ?></link>
+<link><?php echo wp_get_attachment_url( $image->ID ); ?></link>
 <dc:creator><?php the_author() ?></dc:creator>
 <pubDate><?php echo mysql2date('D, d M Y H:i:s +0000', get_post_time('Y-m-d H:i:s', true, $image), false); ?></pubDate>
 <guid isPermaLink="false"><?php echo $image->guid; ?></guid>
 <description><![CDATA[<?php echo $image->post_excerpt; ?>]]></description>
 <content:encoded><![CDATA[
 
-<img src="<?php echo $image->guid; ?>" />
+<img src="<?php echo wp_get_attachment_url( $image->ID ); ?>" />
 <?php echo $image->post_excerpt; ?>
 
 ]]></content:encoded>

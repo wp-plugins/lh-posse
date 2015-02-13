@@ -1,25 +1,27 @@
 === LH Posse ===
 Contributors: shawfactor
-Donate link: http://localhero.biz/plugins/lh-posse/
+Donate link: http://lhero.org/plugins/lh-posse/
 Tags: feed, feeds, rss, Facebook, Twitter, POSSE, Indieweb, syndication,xmlrpc,IFTTT
 Requires at least: 3.0
-Tested up to: 3.9
+Tested up to: 4.1
 Stable tag: trunk
 
-A flexible way to syndicate your content to Facebook, Twitter, Google Drive and many more via IFTTT using customised feeds.
+A flexible way to syndicate your content to Facebook, Twitter, or anywhere via IFTTT using customised feeds.
 == Description ==
 
-Once activated the plugin adds three new feeds. E.G. http://localhero.biz/feed/lh-posse-fb/,  http://localhero.biz/feed/lh-posse-tw/, and   http://localhero.biz/feed/lh-posse-attach/. These feeds are customised for flexible syndication via IFTTT to social media and online productivity apps. You can view the recipes utilising lh-posse feeds here: https://ifttt.com/recipes/search?q=lh-posse&ac=false
+Once activated the plugin adds three new feeds:
+
+To assist in this synidication LH-posse also:
+
+* A Facebook optimised feed of your posts: eg http://lhero.org/?feed=lh-posse-fb.
+* A twitter optimised feed of your posts: eg http://lhero.org/?feed=lh-posse-tw
+* A general feed of your attachments: eg http://lhero.org/?feed=lh-posse-attach
+
+All feeds are built to work with post formats so the message output that is avaialable for each social network (or other location) is tailored for thta social network and adjusted based on the post format used.
 
 It has been developed for use in [LocalHero][].
 
 [LocalHero]: http://localhero.biz/
-
-To assist in this synidication LH-posse also:
-
-* Publishes OGP meta in the HEAD of your HTML (will overide the Jetpacks OGP if Jetpack is installed);
-* Adds a optional OGP logo for your site in the OGP meta;
-* Will autotag hastags in posts which use the post format status;
 
 == Installation ==
 
@@ -46,3 +48,6 @@ Initial release.
 
 **0.06 June 5, 2014**  
 *  Removed xmlrpc (to be moved to own plugin), added attachment feed
+
+**0.07 February 13, 2015**  
+*  Removed twitter api, now has its own plugin (to be added to repository)

@@ -1,5 +1,28 @@
 <?php
 
+function lh_posse_truncate_string($string,$min) {
+    $text = trim(strip_tags($string));
+    if(strlen($text)>$min) {
+        $blank = strpos($text,' ');
+        if($blank) {
+            # limit plus last word
+            $extra = strpos(substr($text,$min),' ');
+            $max = $min+$extra;
+            $r = substr($text,0,$max);
+            if(strlen($text)>=$max) $r=trim($r,'.').'...';
+        } else {
+            # if there are no spaces
+            $r = substr($text,0,$min).'...';
+        }
+    } else {
+        # if original length is lower than limit
+        $r = $text;
+    }
+
+$r = trim(preg_replace('/\s\s+/', ' ', $r));
+    return $r;
+}
+
 /**
  *	~ THE TRUNCENATOR ~
  *	Takes a string (tweet-like note) and some config params, produces a truncated version to spec
