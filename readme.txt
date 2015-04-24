@@ -3,7 +3,7 @@ Contributors: shawfactor
 Donate link: http://lhero.org/plugins/lh-posse/
 Tags: feed, feeds, rss, Facebook, Twitter, POSSE, Indieweb, syndication,xmlrpc,IFTTT
 Requires at least: 3.0
-Tested up to: 4.1
+Tested up to: 4.2
 Stable tag: trunk
 
 A flexible way to syndicate your content to Facebook, Twitter, or anywhere via IFTTT using customised feeds.
